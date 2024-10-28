@@ -42,7 +42,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = ({ onSubmit, onCancel, formV
     });
 
     // Handle form submission
-    const handleSubmit = (values, { setSubmitting,resetForm }) => {
+    const handleSubmit = (values: any, { setSubmitting,resetForm }: any) => {
         onSubmit(values);
         setSubmitting(false);
         resetForm()
@@ -51,7 +51,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = ({ onSubmit, onCancel, formV
     };
     
 
-    const DateField = ({ field, form, ...props }) => {
+    const DateField = ({ field:, form, ...props }) => {
         return (
             <DatePicker
                 selected={field.value}
