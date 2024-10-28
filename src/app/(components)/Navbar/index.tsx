@@ -29,12 +29,12 @@ const Navbar = () => {
     dispatch(setIsDarkMode(!isDarkMode));
   };
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-              dispatch(setCapsules(products));
-              dispatch(setReloadTable(false));
+    //           dispatch(setCapsules(products));
+    //           dispatch(setReloadTable(false));
           
-    },[products ,isLoading])
+    // },[products ,isLoading])
 
 
 

@@ -20,7 +20,7 @@ import { useState,useEffect } from "react";
 
 import { Dialog } from 'primereact/dialog';
 import AddOrEditForm from '../(components)/Add';
-import { setIsDarkMode, setIsSidebarCollapsed, setCapsules, addCapsule, deleteCapsule, editCapsule, setReloadTable } from "@/state";
+import { setIsDarkMode, setIsSidebarCollapsed, setCapsules, addCapsule, deleteCapsule, editCapsule } from "@/state";
 import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../utility/DateTimeFormatter';
 import StatCard from '../(components)/Card/StatCard'
 import {Status} from '../../state/api'
@@ -37,7 +37,7 @@ const Dashboard =  () => {
    const [globalFilterValue, setGlobalFilterValue] = useState('');
    const [selectedRow , setSelectedRow] = useState(null);
    const [selectedRowIndex , setSelectedRowIndex] = useState(null);
-   let reloadTable = useAppSelector((state)=> state.global.reloadTable)
+
 
    const [items, setitems] = useState([
      {
@@ -60,7 +60,7 @@ const Dashboard =  () => {
      {
        label:"Refresh",
        icon: "pi pi-refresh",
-       command: () => { dispatch(setReloadTable(true)) ;}
+       command: () => {}
      }
    ]) 
 
@@ -76,7 +76,7 @@ const Dashboard =  () => {
     useEffect(()=>{
          dispatch(setCapsules(products));
          
-    }, [products,reloadTable])
+    }, [products])
 
 
   if (isLoading) {
