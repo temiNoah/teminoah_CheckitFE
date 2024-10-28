@@ -9,8 +9,8 @@ import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../../utility/Da
 
 
 type Form= {
-    capsuleId:string;
-    originalLaunchDate:string;
+    capsule_id:string;
+    original_launch:string;
     status:string
 }
 interface AddOrEditFormProps {
