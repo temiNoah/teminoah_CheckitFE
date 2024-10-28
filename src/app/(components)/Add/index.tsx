@@ -8,7 +8,18 @@ import { setIsDarkMode, setIsSidebarCollapsed , setCapsules ,addCapsule,deleteCa
 import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../../utility/DateTimeFormatter'
 
 
-const AddOrEditForm = ({ onSubmit,onCancel , formValues }) => {
+type Form= {
+    capsuleId:string;
+    originalLaunchDate:string;
+    status:string
+}
+interface AddOrEditFormProps {
+    onSubmit: (data: any) => void; // Replace `any` with the actual type of data you're submitting
+    onCancel: () => void; // Function to handle cancel action
+    formValues: Form
+}
+
+const AddOrEditForm: React.FC<AddOrEditFormProps> = ({ onSubmit, onCancel, formValues }) => {
    
    
     // Define the initial form values
