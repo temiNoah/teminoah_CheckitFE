@@ -1,12 +1,12 @@
 // components/SearchForm.js
-import React,{useState} from 'react';
+import React,{useState,FC} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { setIsDarkMode, setIsSidebarCollapsed , setCapsules ,addCapsule,deleteCapsule } from "../../../state";
 import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../../utility/DateTimeFormatter'
-
+import { FieldProps } from 'formik';
 
 type Form= {
     capsule_id:string;
@@ -51,7 +51,12 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = ({ onSubmit, onCancel, formV
     };
     
 
-    const DateField = ({ field:, form, ...props }) => {
+    interface DateFieldProps extends FieldProps {
+        // Extend any additional props specific to your DatePicker if needed
+        placeholderText?: string;
+    }
+
+    const DateField: FC<DateFieldProps> = ({ field, form, ...props }) => {
         return (
             <DatePicker
                 selected={field.value}
