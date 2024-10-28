@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { setIsDarkMode, setIsSidebarCollapsed , setCapsules ,addCapsule,deleteCapsule } from "../../state";
+import { setIsDarkMode, setIsSidebarCollapsed , setCapsules ,addCapsule,deleteCapsule } from "../../../state";
 import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../../utility/DateTimeFormatter'
 
 
