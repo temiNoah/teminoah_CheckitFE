@@ -73,10 +73,10 @@ const Dashboard =  () => {
     });
 
 
-    useEffect(()=>{
-         dispatch(setCapsules(products));
+    // useEffect(()=>{
+    //      dispatch(setCapsules(products));
          
-    }, [products])
+    // }, [products])
 
 
   if (isLoading) {
