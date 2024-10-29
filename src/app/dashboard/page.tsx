@@ -25,8 +25,13 @@ import {convertUtcToZonedTime , convertZonedTimeToUTC} from '../../utility/DateT
 import StatCard from '../(components)/Card/StatCard'
 import {Status} from '../../state/api'
 import CapsuleGrid from '../(components)/CapsuleDetails'
+import { Capsules } from "@/state/api";
 
-
+interface formType{
+  capsuleId:string;
+  originalLaunchDate:string;
+  status:Status
+}
 
 const Dashboard =  () => {
    const dispatch = useAppDispatch();
@@ -35,8 +40,8 @@ const Dashboard =  () => {
    const [isVisible, setIsVisible] = useState(false);
    const [showCapsuleDetails,setShowCapsuleDetails] = useState(false);
    const [globalFilterValue, setGlobalFilterValue] = useState('');
-   const [selectedRow , setSelectedRow] = useState(null);
-   const [selectedRowIndex , setSelectedRowIndex] = useState(null);
+   const [selectedRow , setSelectedRow] = useState<Capsules| null>(null);
+   const [selectedRowIndex , setSelectedRowIndex] = useState(-1);
 
 
    const [items, setitems] = useState([
@@ -73,12 +78,6 @@ const Dashboard =  () => {
     });
 
 
-    // useEffect(()=>{
-    //      dispatch(setCapsules(products));
-         
-    // }, [products])
-
-
   if (isLoading) {
     return <div className="py-4">Loading...</div>;
   }
@@ -92,7 +91,7 @@ const Dashboard =  () => {
   }
 
 
-  const missionTemplate = (rowData) => {
+  const missionTemplate = (rowData: Capsules) => {
     const result: any[] = Array.isArray(rowData.missions) ? rowData.missions.map( (mission,index) => (
             <div className="flex flex-row gap-2" key={index}> 
                 <div> Name: <span>{mission.name}</span>  </div>
@@ -106,7 +105,7 @@ const Dashboard =  () => {
     return <div className="flex flex-col gap-2">{result}</div>
   };
 
-  const launchDateTemplate=(rowData)=>{
+  const launchDateTemplate = (rowData: Capsules)=>{
         return (
             <div className="flex flex-row gap-1">
                <span>{rowData.original_launch ? convertUtcToZonedTime(rowData.original_launch) :''}</span>
@@ -114,7 +113,7 @@ const Dashboard =  () => {
     );
   }
 
-  const actionTemplate = (rowData,{ rowIndex }) => {
+  const actionTemplate = (rowData: Capsules,{ rowIndex }:any) => {
     return (
             <div className="flex flex-row gap-1">
                <Button icon="pi pi-pencil" className="p-button-text" onClick={() => { setSelectedRow(rowData);setSelectedRowIndex(rowIndex); setIsVisible(true)}} />
@@ -123,7 +122,7 @@ const Dashboard =  () => {
     );
   };
 
-   const onGlobalFilterChange = (e) => {
+   const onGlobalFilterChange = (e:any) => {
         const value = e.target.value;
         const _filters = { ...filters };
 
@@ -149,20 +148,19 @@ const Dashboard =  () => {
 
   const header = renderHeader();
 
-
-
   const openModal = () => setIsVisible(true);
   const closeModal = () => setIsVisible(false);
 
 
 
-   const handleAddCapsule=(form)=>{
+  const handleAddCapsule = (form: formType)=>{
      const capsule ={capsule_id : form.capsuleId , original_launch : form.originalLaunchDate , status : form.status}
      dispatch(addCapsule(capsule))
    }
 
-  const handleEditCapsule = (form, selectedRowIndex)=>{
-          dispatch(editCapsule({form ,selectedRowIndex}))
+  const handleEditCapsule = (form: formType, selectedRowIndex: number)=>{
+          const newForm = { capsule_id: form.capsuleId, original_launch: form.originalLaunchDate, status: form.status }
+           dispatch(editCapsule({ newForm ,selectedRowIndex}))
           setIsVisible(false)
    }
 
@@ -215,7 +213,7 @@ const Dashboard =  () => {
           header={header} emptyMessage="No capsules found."
           selectionMode="single" 
           selection={selectedRow} 
-          onSelectionChange={(e) => {setSelectedRow(e.value); setShowCapsuleDetails(true); }}
+          onSelectionChange={(e) => {setSelectedRow(e.value as Capsules); setShowCapsuleDetails(true); }}
           >
           <Column field="capsule_serial" header="Capsule Serial" sortable {...noWrapContentStyle} />
           <Column field="capsule_id" header="Capsule ID" sortable className="w-55" {...noWrapContentStyle} />
@@ -233,18 +231,24 @@ const Dashboard =  () => {
 
 
       
-      
+      {
+         selectedRow &&
       <Dialog
                 header= { (selectedRow ? "Edit":"Add " )+ " new capsule"}
                 visible={isVisible}
                 style={{ width: '50%' , height:'70%' }}
                 onHide={()=>{closeModal(); setSelectedRow(null)}}
             >
-              <AddOrEditForm  onSubmit={(form)=>{ selectedRow? handleEditCapsule(form , selectedRowIndex) :handleAddCapsule(form)}} onCancel={closeModal} formValues={selectedRow}/>
+              <AddOrEditForm 
+                      onSubmit={(form)=>{ selectedRow? handleEditCapsule(form , selectedRowIndex) :handleAddCapsule(form)}} 
+                      onCancel={closeModal} 
+                      formValues={selectedRow}
+              />
        </Dialog>
+      }
 
 
-
+     { selectedRow &&
        <Dialog
             header= { "Capsule Details"}
             visible={showCapsuleDetails}
@@ -253,6 +257,7 @@ const Dashboard =  () => {
        >
           <CapsuleGrid data={selectedRow}/>
        </Dialog>
+      }
     
     </div>
   );

@@ -2,8 +2,7 @@ import { Button } from "primereact/button";
 import React from "react";
 
 type StatDetail = {
-  title: string;
-  total: string;
+  total: number;
 };
 
 type StatCardProps = {

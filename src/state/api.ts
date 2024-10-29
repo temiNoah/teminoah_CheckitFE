@@ -16,16 +16,16 @@ interface Mission{
   flight? :number;
 }
 export interface Capsules {
-  capsule_serial : string,
+  capsule_serial? : string,
   capsule_id: string,
   status: Status,
   original_launch: string,
-  original_launch_unix: number,
-  missions: Mission[],
-  landings: number,
-  type: Type,
-  details: string,
-  reuse_count: number
+  original_launch_unix?: number,
+  missions?: Mission[],
+  landings?: number,
+  type?: Type,
+  details?: string,
+  reuse_count?: number
 }
 
 export interface Product {
@@ -96,7 +96,7 @@ export const api = createApi({
 
     searchCapsules: build.query<Capsules[], string | void>({
       query: (search) => `/capsules/${search}`,
-      providesTags:(result, error, arg) =>( ["Capsules", arg.search]),
+      providesTags: (result, error, arg) => [{ type: "Capsules", id: arg ?? "LIST" },],
     }),
   }),
 });

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {Capsules} from './api'
+import {Capsules ,Status} from './api'
 
 
 
@@ -17,6 +17,16 @@ const initialState: InitialStateTypes = {
   reloadTable:false
 };
 
+interface form{
+  capsule_id:string;
+  original_launch:string;
+  status:Status
+}
+interface editPaylaod{
+  newForm:form;
+  selectedRowIndex:number
+}
+
 export const globalSlice = createSlice({
   name: "global",
   initialState,
@@ -28,30 +38,36 @@ export const globalSlice = createSlice({
       state.isDarkMode = action.payload;
     },
 
-    setCapsules:(state , action : PayloadAction<Capsules>)=>{
-         state.capsules =action.payload
+    setCapsules:(state , action : PayloadAction<Capsules[]>)=>{
+         state = {...state, capsules : action.payload }
+
+         return state
     },
     addCapsule :(state ,action :PayloadAction<Capsules>)=>{
          state.capsules.push(action.payload)
     },
-    deleteCapsule :(state ,action :PayloadAction<Capsules>)=>{  
+    deleteCapsule :(state ,action :PayloadAction<number>)=>{  
          state.capsules= state.capsules.filter( (capsule,index) => index != action.payload )
     },
 
 
-    editCapsule : (state , action : PayloadAction<Capsules>)=>{
+    editCapsule: (state, action: PayloadAction<editPaylaod>)=>{
 
-          state.capsules= state.capsules.map((capsule,index) =>{
+          const newCapsules= state.capsules.map((capsule,index) =>{
                if(index === action.payload.selectedRowIndex)
                 {  return {
                           ...capsule, 
-                          capsule_id: action.payload.form.capsuleId , 
-                          original_launch:action.payload.form.originalLaunchDate,
-                          status : action.payload.form.status
+                          capsule_id: action.payload.newForm.capsule_id , 
+                          original_launch: action.payload.newForm.original_launch,
+                          status : action.payload.newForm.status
                   }
                 }
               else{  return capsule }
           })
+
+      state = {...state , capsules:newCapsules}
+
+      return state
     },
 
     setReloadTable:(state , action:PayloadAction<boolean>)=>{
