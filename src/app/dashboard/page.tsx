@@ -174,11 +174,8 @@ const Dashboard =  () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xl:overflow-auto gap-5 pb-4 custom-grid-rows border-0">
             <StatCard
               title="Total Capsules"
-              primaryIcon={<Button icon="pi pi-id-card" className="text-blue-600 w-6 h-6" />}
-              dateRange="22 - 29 October 2023"
               details={[
                 {
-                
                   total: products.length,
                 },
               ]}
@@ -186,8 +183,6 @@ const Dashboard =  () => {
 
             <StatCard
               title="Total Active Capsules"
-              primaryIcon={<Button icon="pi pi-id-card" className="text-blue-600 w-6 h-6" />}
-              dateRange="22 - 29 October 2023"
               details={[
                 {
                   total: products.reduce((sum , capsule)=>{
@@ -200,8 +195,6 @@ const Dashboard =  () => {
 
             <StatCard
               title="Total Destroyed Capsules"
-              primaryIcon={<Button icon="pi pi-id-card" className="text-blue-600 w-6 h-6" />}
-              dateRange="22 - 29 October 2023"
               details={[
                 {
                   total: products.reduce((sum , capsule)=>{
