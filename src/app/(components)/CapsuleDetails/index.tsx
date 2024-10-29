@@ -43,9 +43,14 @@ const CapsuleGrid = ({ data }: CapsuleGridProps) => {
       <div className="p-col-12 p-md-4 py-3">
         <strong>Missions:</strong>
         <ul>
-          {data?.missions.map((mission, index) => (
-            <li key={index}>{mission?.name ? mission?.name : ''} (Flight: {mission?.flight ? mission.flight :''})</li>
-          ))}
+          {
+            data?.missions?(
+            data?.missions.map((mission, index) => (
+              <li key={index}>{mission?.name ? mission?.name : ''} (Flight: {mission?.flight ? mission.flight :''})</li>
+            )) )
+            :
+            <li>No missions available.</li>
+          }
         </ul>
       </div>
     </div>
