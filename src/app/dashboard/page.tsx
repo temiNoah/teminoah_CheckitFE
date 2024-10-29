@@ -44,6 +44,10 @@ const Dashboard =  () => {
    const [selectedRowIndex , setSelectedRowIndex] = useState(-1);
 
 
+   useEffect(() => {
+      products ? dispatch(setCapsules(products)) :'';
+   }, [products])
+
    const [items, setitems] = useState([
      {
        label: "New",
@@ -90,6 +94,7 @@ const Dashboard =  () => {
     );
   }
 
+ 
 
   const missionTemplate = (rowData: Capsules) => {
     const result: any[] = Array.isArray(rowData.missions) ? rowData.missions.map( (mission,index) => (
@@ -163,6 +168,7 @@ const Dashboard =  () => {
            dispatch(editCapsule({ newForm ,selectedRowIndex}))
           setIsVisible(false)
    }
+
 
 
 
