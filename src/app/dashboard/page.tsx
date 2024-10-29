@@ -248,7 +248,7 @@ const Dashboard =  () => {
               <AddOrEditForm 
                       onSubmit={(form)=>{ selectedRow? handleEditCapsule(form , selectedRowIndex) :handleAddCapsule(form)}} 
                       onCancel={closeModal} 
-                      formValues={selectedRow}
+                      formValues={selectedRow ? selectedRow : null}
               />
        </Dialog>
       }

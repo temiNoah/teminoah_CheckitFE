@@ -16,7 +16,7 @@ type Form= {
 interface AddOrEditFormProps {
     onSubmit: (data: any) => void; // Replace `any` with the actual type of data you're submitting
     onCancel: () => void; // Function to handle cancel action
-    formValues: Form
+    formValues: Form | null
 }
 
 const AddOrEditForm: React.FC<AddOrEditFormProps> = ({ onSubmit, onCancel, formValues }) => {
