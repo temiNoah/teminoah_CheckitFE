@@ -238,7 +238,7 @@ const Dashboard =  () => {
 
       
       {
-         selectedRow &&
+        isVisible &&
       <Dialog
                 header= { (selectedRow ? "Edit":"Add " )+ " new capsule"}
                 visible={isVisible}
