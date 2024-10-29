@@ -2,7 +2,13 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const SearchForm = ({ onSubmit }) => {
+
+interface SearchFormProp{
+
+    onSubmit: (data:any)=>void
+}
+
+const SearchForm = ({ onSubmit } : SearchFormProp) => {
     const initialValues = {
         query: ''
     };
@@ -15,7 +21,7 @@ const SearchForm = ({ onSubmit }) => {
     });
 
     // Handle form submission
-    const handleSubmit = async(values, { setSubmitting }) => {
+    const handleSubmit = async(values:any, { setSubmitting }:any) => {
       await  onSubmit(values.query); // Pass the search query to the parent component
         setSubmitting(false);
 

@@ -1,12 +1,16 @@
 import React from 'react';
 import 'primeflex/primeflex.css';
+import {Capsules} from '../../../state/api'
 
 import {convertUtcToZonedTime} from '../../../utility/DateTimeFormatter'
 
-const CapsuleGrid = ({data}) => {
+
+interface CapsuleGridProps {
+   data: Capsules;
+}
+const CapsuleGrid = ({ data }: CapsuleGridProps) => {
 
 
-  
   return (
     <div className="p-grid p-justify-center w-full border-0 ps-8">
       <div className="p-col-12 p-md-4 border-0 ">

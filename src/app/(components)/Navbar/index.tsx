@@ -10,7 +10,7 @@ import React,{useState,useEffect} from "react";
 import { Button } from 'primereact/button';
 import SearchForm from '../Search'
 
-import { useGetProductsQuery, useGetCapsulesQuery,useLazySearchCapsulesQuery } from "@/state/api";
+import {  useGetCapsulesQuery,useLazySearchCapsulesQuery } from "@/state/api";
 
 
 const Navbar = () => {
@@ -41,10 +41,10 @@ const Navbar = () => {
 
     const [searchResult, setSearchResult] = useState('');
 
-    const handleSearchSubmit = async (query) => { 
+    // const handleSearchSubmit = async (query) => { 
       
-     //  await  trigger(query);
-    };
+    //   await  trigger(query);
+    // };
 
 
   return (
@@ -52,7 +52,7 @@ const Navbar = () => {
       {/* LEFT SIDE */}
       <div className="flex justify-between items-center gap-5">
          <Button icon="pi pi-align-justify" onClick={toggleSidebar} className=" px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"/>
-         <SearchForm onSubmit={handleSearchSubmit} />
+         <SearchForm onSubmit={()=>{}} />
       </div>
 
       {/* RIGHT SIDE */}
